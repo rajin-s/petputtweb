@@ -1,0 +1,174 @@
+<head>
+    <include src=".include/head.py.html" />
+    <code py>
+        def alink(url, text, new_tab=True, **kwargs):
+            if new_tab:
+                return element('a', content=text, target='_blank', href=url, **kwargs)
+            else:
+                return element('a', content=text, href=url, **kwargs)
+        PetPutt = "<strong>Pet Putt</strong>"
+    </code>
+</head>
+
+<body class="forest">
+    <include src=".include/navigation.py.html" />
+
+    <div class="middle blank center">
+        <div class="large">Coming Soon!</div>
+        <div class="box fill row">
+            <a class="pill" href="#`twitter_link`" target="_blank">Follow on <strong>Twitter</strong> for updates!</a>
+            <a class="pill" href="#`patreon_link`" target="_blank">Support development on <strong>Patreon!</strong></a>
+        </div>
+    </div>
+    <div class="middle blank"></div>
+
+    <div class="middle blank">
+        <code py>
+            images = [
+                {
+                    'title': "Forest",
+                    'src': '/img/screenshots/forest_large.png'
+                },
+                {
+                    'title': "Forest Windmill",
+                    'src': '/img/screenshots/windmill_large.png'
+                },
+                {
+                    'title': "Desert",
+                    'src': '/img/screenshots/desert_large.png'
+                },
+                {
+                    'title': "Snowy",
+                    'src': '/img/screenshots/ice_large.png'
+                },
+                {
+                    'title': "Spooky",
+                    'src': '/img/screenshots/spooky_large.png'
+                },
+                {
+                    'title': "Space",
+                    'src': '/img/screenshots/space_large.png'
+                },
+                {
+                    'title': "Black Hole",
+                    'src': '/img/screenshots/dark_large.png'
+                },
+            ]
+        </code>
+
+        <div class="slideshow">
+            <div class="slides">
+                <code py>
+                    slideshow_name = "homeslide1"
+
+                    first = True
+                    for image in images:
+                        link = image['src']
+                        name = image['title']
+
+                        toggle_info = {
+                            'type': "radio",
+                            'id'  : f"toggleslide_{name}",
+                            'name': slideshow_name,
+                        }
+                        if first:
+                            toggle_info['checked'] = "true"
+                            first = False
+
+                        slide_info = {
+                            'href'  : link,
+                            'target': "_blank",
+                            'style' : f"background-image:url('{link}')",
+                            'class' : "slide"
+                        }
+                        
+                        print_element('input', **toggle_info)
+                        print_element('a', **slide_info)
+                </code>
+            </div>
+            <div class="controls">
+                <code py>
+                    first = True
+                    for image in images:
+                        link = image['src']
+                        name = image['title']
+
+                        info = {
+                            'for'    : f"toggleslide_{name}",
+                            'style'  : f"background-image:url('{link}')",
+                            'class'  : "",
+                            'onclick': "select_slideshow_label(this)"
+                        }
+
+                        if first:
+                            info['class'] = "active"
+                            first = False
+
+                        print_element('label', content=name, **info)
+                </code>
+            </div>
+        </div>
+    </div>
+
+    <div id="play" class="middle" header="Play">
+        <img class="character_popup" src="/img/redd_popup.png" alt="Redd" />
+        #`PetPutt` is currently in development, and will release early next year on PC, as well as anything else I can get the game to run on.
+        You can get access to the most recent demo, as well as all future demos, by contributing #`alink(patreon_link, "<strong>any amount</strong> on Patreon")` to help support the game's development.
+        <br><br>
+        If you'd like to review the current demo build of the game, feel free to get in touch via
+        #`alink(twitter_link, "Twitter")` or #`alink(f"mailto:{email}", "email")`!
+    </div>
+    
+    <div id="about" class="middle right_title" header="About">
+        <img class="character_popup right" src="/img/fen_popup.png" alt="Fen" />
+        #`PetPutt` is a hybrid puzzle / mini-golf game that takes place on delightful spherical worlds.
+        Meet new adorable friends, conquer the Pet Putt World Championships, and defeat the forces of evil as you explore beautiful planets filled with treacherous courses and unexpected twists.
+        <br><br>
+        The game is a solo project by me (#`alink("https://twitter.com/rajinshankar", "Rajin Shankar")`) using #`alink("http://godotengine.org", "Godot.")`
+        You can support #`PetPutt` and check out more games on my #`alink(patreon_link, "Patreon")`
+    </div>
+
+    <div class="middle blank"></div>
+    <div class="middle blank">
+        <div class="box row wrap">
+            <code py>
+                awards = [
+                    {
+                        "from": "Indy Pop Con",
+                        "name": "Secret Game Awards: Best Aesthetics",
+                        "year": 2019,
+                        "image": "/img/awards/PopCon19.svg"
+                    },
+                ]
+
+                for award in awards:
+                    s = f"{award['from']}: {award['name']} {award['year']}"
+                    print_element('img', src=award['image'], alt=s, title=s, style="width:40%")
+            </code>
+        </div>
+    </div>
+    
+    <div id="contact" class="middle center" header="Contact">
+        <div class="box row">
+            <a href="#`twitter_link`" class="medium" target="_blank" title="#`twitter_handle` on Twitter"><i class="fab fa-twitter"></i> #`twitter_handle`</a>
+            <a href="mailto:#`email`" class="medium" title="Send mail to #`email`"><i class="fas fa-envelope"></i> #`email`</a>
+        </div>
+    </div>
+    
+    <div id="media" class="middle right_title" header="Media">
+        <p>
+            <!-- <img class="character_popup" src="/img/dark_popup.png" alt="???" /> -->
+            Be sure to reach out through #`alink(twitter_link, "Twitter")` or #`alink(f"mailto:{email}", "email", False)` if 
+            you're interested in writing about #`PetPutt`, or recording/streaming the game!
+            You can also find a full presskit for the game <a href="/media">here!</a>
+        </p>
+    </div>
+
+    <div class="middle blank"></div>
+    <div class="middle blank"></div>
+    <div class="middle center blank">
+        <a href="#top" class="btt"></a>
+    </div>
+</body>
+
+<script src="/js/effects.js"></script>

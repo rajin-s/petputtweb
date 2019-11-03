@@ -1,0 +1,300 @@
+<head>
+    <include src="/.include/head.py.html" />
+</head>
+
+<code py>
+    sections = {
+        'Basic Info': {
+            'id': 'basic',
+            'mode': 'list',
+            'template': '<h2>$name</h2>$content',
+            'content': [
+                {
+                    'name': 'Developer',
+                    'content': element('p', content=element('a', content='Rajin Shankar', href='https://twitter.com/rajinshankar', target='_blank') + ' (based in Bloomington, Indiana)')
+                },
+                {
+                    'name': 'Description',
+                    'content': mdformat(
+                        '''
+                        **Pet Putt** is a delightful hybrid of mini-golf and physics puzzles, all taking place on spherical courses.
+                        You'll meet new adorable animal friends and face off against the forces of evil as you compete in the Pet Putt World Championships.
+                        
+                        Along the way you'll travel through numerous unique environments, each with their own twists on spherical mini-golf gameplay.
+                        A constant supply of new puzzles and quests keep things fresh, with extra-fiendish bonus levels available to competitors seeking a serious challenge.
+                        '''
+                    )
+                }
+            ]
+        },
+        'Links': {
+            'id': 'links',
+            'mode': 'grid',
+            'template': '<a href="$link" class="link-icon" title="$name" target="_blank" style="background-image:url(\' $icon \')">$name</a>',
+            'content': [
+                {
+                    'name': 'Twitt&#x435;r', # Prevent adblock from blocking this with a lookalike character :(
+                    'icon': '/img/tw_text.svg',
+                    'link': 'https://twitter.com/rajinshankar'
+                },
+                {
+                    'name': 'Patreon',
+                    'icon': '/img/patreon_text.svg',
+                    'link': 'https://patreon.com/rajin'
+                },
+            ]
+        },
+        
+        '.details': {},
+
+        'Features': {
+            'id': 'features',
+            'mode': 'list',
+            'template': '<div class="flex row"><div class="bullet">+</div><div>$content</div></div>',
+            'content': [
+                { 'content': 'Unique spherical puzzle-golf gameplay' },
+                { 'content': 'Six environments, each with their own mechanics, quests, characters, and challenges' },
+                { 'content': 'Dozens of levels featuring a wide variety of puzzle mechanics in addition to classic golf rules' },
+                { 'content': 'Level rankings and additional challenge levels unlocked by obtaining gold medals' },
+                { 'content': 'Support for mouse+keyboard, gamepad, and touch input' },
+            ]
+        },
+
+        'Platforms': {
+            'id': 'platforms',
+            'mode': 'list',
+            'template': '<div> <strong>$name</strong>: $status </div>',
+            'content': [
+                {
+                    'name': 'Windows',
+                    'status': 'Fully supported (Steam, itch.io)'
+                },
+                {
+                    'name': 'Linux',
+                    'status': 'Planned support (Steam, itch.io)'
+                },
+                {
+                    'name': 'Mobile',
+                    'status': 'Not yet supported (Android, iOS)'
+                },
+                {
+                    'name': 'Consoles',
+                    'status': 'Not yet supported (Nintendo Switch, XBox One)'
+                },
+            ]
+        },
+        'Tech': {
+            'id': 'tech',
+            'mode': 'list',
+            'template': '$content',
+            'content': [
+                {
+                    'content': mdformat(
+                        '''
+                        **Pet Putt** is being developed with a custom fork of the open-source [Godot game engine](https://godotengine.org).
+                        '''
+                    )
+                } 
+            ]
+        },
+
+        '.additional': {},
+        'History': {
+            'id': 'history',
+            'mode': 'list',
+            'template': '$content',
+            'content': [
+                {
+                    'content': mdformat(
+                        '''
+                        **Pet Putt** started life in March of 2019 as a small prototype for a class project.
+                        Over the course of one month, the game quickly expanded far past the intended scope (a simple 2D physics puzzle).
+                        By the time the project was finished, it already had many of its core features, including its unique spherical golf puzzles,
+                        dialogue system, and input mechanisms.
+
+                        After receiving very positive reactions from everyone that I had playtest the game, it was clear that the concept was
+                        interesting, the gameplay was engaging, and the characters were lovable. Very excited about the idea myself,
+                        I decided to continue development with the goal of a full commercial release.
+
+                        With a bit more polish, new environments, and new puzzles, the game had its first public debut at
+                        [Indy PopCon 2019](https://popcon.us/indy/) where it once again received glowing praise, and was even given the honor of
+                        __Best Aesthetics__ among all the games present by a panel of industry judges.
+                        '''
+                    )
+                }
+            ]
+        },
+        'Awards': {
+            'id': 'awards',
+            'mode': 'list',
+            'template': '<div class="flex row"> <div>$date</div> <div><strong>$name</strong><br/>$category</div> </div>',
+            'content': [
+                {
+                    'name': 'Best Aesthetics',
+                    'category': 'Indy PopCon: 0th Annual Secret Awards',
+                    'date': 'June 2019'
+                }
+            ]
+        },
+        
+        '.content': {},
+
+        'Screenshots': {
+            'id': 'screens',
+            'mode': 'grid steps',
+            'template': '<a class="img" target="_blank" title="$title" href="$src" style="background-image:url(\'$src\')"></a>',
+            'content': [
+                {
+                    'title': "Forest",
+                    'src': '/img/screenshots/forest_large.png'
+                },
+                {
+                    'title': "Forest Windmill",
+                    'src': '/img/screenshots/windmill_large.png'
+                },
+                {
+                    'title': "Desert",
+                    'src': '/img/screenshots/desert_large.png'
+                },
+                {
+                    'title': "Snowy",
+                    'src': '/img/screenshots/ice_large.png'
+                },
+                {
+                    'title': "Spooky",
+                    'src': '/img/screenshots/spooky_large.png'
+                },
+                {
+                    'title': "Space",
+                    'src': '/img/screenshots/space_large.png'
+                },
+                {
+                    'title': "Black Hole",
+                    'src': '/img/screenshots/dark_large.png'
+                },
+            ]
+        },
+
+        'Characters': {
+            'id': 'characters',
+            'mode': 'grid center',
+            'template': '<a class="img" target="_blank" title="$title" href="$src" style="background-image:url(\'$src\'); background-size: contain"></a>',
+            'content': [
+                {
+                    'title': "Redd",
+                    'src': "/img/characters/ReddName.png"
+                },
+                {
+                    'title': "Fen",
+                    'src': "/img/characters/FenName.png"
+                },
+                {
+                    'title': "the Cactus Prince",
+                    'src': "/img/characters/CactusPrinceName.png"
+                },
+                {
+                    'title': "Nix",
+                    'src': "/img/characters/NixName.png"
+                },
+                {
+                    'title': "Zip",
+                    'src': "/img/characters/ZipName.png"
+                },
+            ]
+        },
+
+        # 'Videos'      : 'videos',
+        # 'Graphics'    : 'graphics',
+        # 'Photos'      : 'photos',
+        
+        '.other' : {},
+        'Thanks' : {
+            'id': 'thanks',
+            'mode': 'list',
+            'template': '<div class="center"><strong>$name</strong>: $role</div>',
+            'content': [
+                {
+                    'role': 'Mentorship & Support',
+                    'name': element('a', content='Chabane Maidi', href='https://twitter.com/oranjoose', target='_blank')
+                },
+                {
+                    'role': 'Additional voice clip editing',
+                    'name': 'Jake Sturgil'
+                },
+                {
+                    'role': 'Demo music track',
+                    'name': element('a', content='Bad Snacks', href='https://youtube.com/badsnacks', target='_blank')
+                },
+                {
+                    'role': 'General advice',
+                    'name': element('a', content='Ian Sundstrom', href='https://twitter.com/IanSundstrom', target='_blank')
+                },
+                {
+                    'role': 'General advice',
+                    'name': element('a', content='Travis Faas', href='https://twitter.com/meanderingleaf', target='_blank')
+                },
+            ]
+        },
+        # 'Contact' : 'contact',
+    }
+</code>
+
+<body class="desert">
+    <include src="/.include/navigation.py.html" />
+
+    <div class="flex middle blank columns">
+        <div id="media-nav" class="side_navigation">
+            <code py>
+                for (name, info) in sections.items():
+                    if name[0] == '.':
+                        print_element('div')
+                        print_element('div')
+                    else:
+                        id = info['id']
+                        print_element('a', content=name, class_list=['sharp', 'alternate'], href=f"#{id}")
+            </code>
+        </div>
+        <div>
+            <!-- Begin Info Column -->
+            <code py>
+                i = 0
+                for (name, info) in sections.items():
+                    if name[0] == '.':
+                        print_element('div', class_list=['spacer'])
+                        i = 0
+                    else:
+                        element_info = {
+                            'id'    : info['id'],
+                            'class' : 'middle',
+                            'header': name
+                        }
+                        
+                        if i % 2 == 1:
+                            element_info['class'] += ' right_title'
+                        
+                        element_content = ""
+                        for item in info['content']:
+                            element_content += inject(item, info['template'])
+
+                        element_content = f"<div class='{info['mode']}'>{element_content}</div>"
+                        
+                        print_element('div', content=element_content, **element_info)
+                        i += 1
+            </code>
+        </div>
+    </div>
+</body>
+
+<script src="/js/effects.js"></script>
+<script>
+    let nav = document.getElementById('media-nav')
+    let update = () => {
+        let offset = nav.getBoundingClientRect().top - 8;
+        nav.style.paddingTop = `${- (offset > 0 ? 0 : offset)}px`
+
+        console.log(offset)
+
+        setTimeout(update, 0.016)
+    }
+    update()
+</script>

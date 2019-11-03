@@ -25,9 +25,11 @@ class pattern_text:
     preprocess = f'<include  src = "({local_text}{re.escape(gen_ext)})" />'
     include    = f'<include  src = "({local_text})" />'
 
-    python_include   = f'<py  src = "({local_text})" />'
-    python_block_tag =  'py|pre py|code py'
-    python_block     = f'<(?:{python_block_tag})>({all_text})</(?:{python_block_tag})>'
+    python_include       = f'<py  src = "({local_text})" />'
+    python_block_tag     =  'py|pre py|code py'
+    python_block_tag_end =  'py|pre|code'
+    
+    python_block     = f'<(?:{python_block_tag})>({all_text})</(?:{python_block_tag_end})>'
     python_snippet   = f'#`({local_text})`'
 
 # Convert a readable pattern to regex
@@ -65,7 +67,10 @@ def preprocess(text, cwd, chain, py_globals, py_locals):
                 print(f"  Cyclic include in {ppinclude_path}!")
                 continue
             
-            ppinclude_path = join(cwd, ppinclude_path)
+            if ppinclude_path.startswith("/"):
+                ppinclude_path = "." + ppinclude_path
+            else:
+                ppinclude_path = join(cwd, ppinclude_path)
             file_text = open(ppinclude_path).read()
             file_text = preprocess(file_text, dirname(ppinclude_path), chain + [ppinclude_path], py_globals, py_locals)
             text = text.replace(original, file_text)
@@ -79,15 +84,25 @@ def preprocess(text, cwd, chain, py_globals, py_locals):
                 sys.stdout = old_stdout
             except Exception as e:
                 sys.stdout = old_stdout
+                (t, o, tb) = sys.exc_info()
+                line = tb.tb_lineno - 1
                 print(f"  error in exec: {e}")
-                print(indent(exec_text, "  > "))
+                
+                # lines = exec_text.split('\n')
+                # print("  " + lines[line-1])
+                # print("> " + lines[line])
+                # print("  " + lines[line+1])
             
             text = text.replace(original, result_text_stream.getvalue())
     
     # Do basic includes
     includes = re.findall(pattern.include, text)
     for (original, path) in includes:
-        path = join(cwd, path)
+        if path.startswith("/"):
+            path = "." + path
+        else:
+            path = join(cwd, path)
+
         file_text = open(path).read()
         text = text.replace(original, file_text)
 
@@ -109,9 +124,8 @@ def generate(folder):
         if path.startswith("."):
             continue
 
-        if isdir(path):
+        if isdir(full_path):
             generate(full_path)
-        
         else:
             if full_path.endswith(gen_ext):
                 try:
@@ -124,7 +138,7 @@ def generate(folder):
                     # note: import functions from genutil for convenience
                     py_globals = {}
                     py_locals = {}
-                    exec("from genutil import *", py_globals, py_locals)
+                    exec("from genutil import *", py_globals, py_globals)
 
                     output_text = preprocess(file_text, folder, [full_path], py_globals, py_locals)
                     output_text = output_template.replace("$doc", output_text)
